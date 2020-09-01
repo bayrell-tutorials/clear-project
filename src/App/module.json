@@ -1,0 +1,12 @@
+{
+	"name": "App",
+	"files":
+	[
+		"AppLayout",
+		"IndexPage",
+		"IndexPageModel",
+		"Page404",
+		"Routes",
+		"ModuleDescription"
+	]
+}

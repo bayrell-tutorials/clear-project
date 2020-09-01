@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Clear project</title>
+</head>
+<body>
+
+<div class='root'></div>
+
+<script src="js/runtime.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+
+function runApp()
+{
+	/* Create context */
+	var context = Runtime.Core.Context.create(null, Runtime.Dict.from({}));
+
+	/* Set context params */
+	context = context.copy(context, {
+		"start_time": Date.now(),
+	});
+
+	/* Set entry point */
+	context = context.constructor.setMainModule(context, context, "App");
+	
+	/* Set global context */
+	Runtime.RuntimeUtils.setContext(context);
+
+	/* Run app */
+	(async () => {
+		try
+		{
+			/* Run entry */
+			context = await context.constructor.run(context, context);
+			window["globalContext"] = context;
+		}
+		catch (e)
+		{
+			console.log( e.stack );
+		}
+	})();
+	
+	return context;
+}
+
+runApp();
+
+</script>
+
+</body>
+</html>

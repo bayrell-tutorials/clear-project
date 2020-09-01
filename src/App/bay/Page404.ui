@@ -1,0 +1,25 @@
+<class version="1.0"
+	name="App.Page404" extends="Runtime.Web.Component" 
+	module="App" model="App.IndexPageModel"
+>
+
+<use name="Runtime.Core.Message" />
+<use name="Runtime.Web.LayoutModel" />
+<use name="Runtime.Web.Events.MouseClickEvent" />
+<use name="App.IndexPageModel" />
+
+<style>
+</style>
+
+
+<template name="render">
+	Page not found
+</template>
+
+
+<script type="frontend">
+
+
+</script>
+
+</class>

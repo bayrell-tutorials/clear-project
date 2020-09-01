@@ -1,0 +1,9 @@
+namespace App;
+
+use Runtime.BaseStruct;
+
+
+struct IndexPageModel extends BaseStruct
+{
+	Dict item = null;
+}

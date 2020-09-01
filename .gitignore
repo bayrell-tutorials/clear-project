@@ -1,0 +1,9 @@
+/app/[^\\]*/es6
+/app/[^\\]*/nodejs
+/app/[^\\]*/php
+/src/[^\\]*/es6
+/src/[^\\]*/nodejs
+/src/[^\\]*/php
+/compiler.new
+/node_modules
+/web/assets
