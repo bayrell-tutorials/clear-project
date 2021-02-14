@@ -6,4 +6,4 @@
 /src/[^\\]*/php
 /compiler.new
 /node_modules
-/web/assets
+/assets/
