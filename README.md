@@ -15,8 +15,7 @@ git submodule update --init --recursive
 
 Compile all project
 ```
-bayrell-lang-nodejs build
-bayrell-lang-nodejs make_symlinks
+bayrell-lang-nodejs build_all
 ```
 
 Watch changes:
