@@ -4,6 +4,6 @@
 [submodule "lib/Runtime.Web"]
 	path = lib/Runtime.Web
 	url = https://github.com/bayrell/Runtime.Web
-[submodule "lib/Runtime.Core"]
-	path = lib/Runtime.Core
-	url = https://github.com/bayrell/Runtime.Core
+[submodule "lib/Runtime.Web.App"]
+	path = lib/Runtime.Web.App
+	url = https://github.com/bayrell/Runtime.Web.App

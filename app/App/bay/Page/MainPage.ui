@@ -1,0 +1,41 @@
+<class version="1.0"
+	name="App.Page.MainPage" extends="Runtime.Web.Component" 
+	module="Bayrell.CloudOS" model="Runtime.Dict"
+>
+
+<use name="Runtime.Web.App.LayoutModel" />
+<use name="Runtime.Web.App.RenderContainer" />
+<use name="Runtime.Web.App.Route" />
+<use name="Runtime.Web.App.RouteList" />
+<use name="Runtime.Web.App.RouteMiddleware" />
+<use name="Runtime.Web.Events.MouseClickEvent" />
+
+
+<script>
+
+/**
+ * Route Action
+ * @return RenderContainer
+ */
+@Route{ "uri": "/", "name": "app.main" }
+static async RenderContainer MainPage(RenderContainer container)
+{
+	/* Set title */
+	container <= layout <= title <= "Index page";
+	container <= layout <= layout_name <= "default";
+	
+	/* Set page */
+	container = container.setPage(classof MainPage, new Dict{});
+	
+	return [ container ];
+}
+
+</script>
+
+
+<template name="render">
+	<div>Main page</div>
+</template>
+
+
+</class>

@@ -1,10 +1,10 @@
 {
 	"name": "App",
-	"files":
+	"assets":
 	[
-		"AppLayout",
-		"IndexPage",
-		"IndexPageModel",
+		"Page/MainPage",
+		"DefaultLayout",
+		"Frontend",
 		"Page404",
 		"Routes",
 		"ModuleDescription"

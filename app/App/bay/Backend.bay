@@ -1,0 +1,49 @@
+namespace App;
+
+use Runtime.BaseDriver;
+use Runtime.BaseStruct;
+use Runtime.Context;
+use Runtime.LambdaChainClass;
+use Runtime.Web.App.WebApp;
+
+
+@LambdaChainClass{}
+class Backend extends WebApp
+{
+	
+	/**
+	 * Extends entities
+	 */
+	pure Collection<BaseStruct> extendEntities(Context c, Collection<BaseStruct> entities) => entities;
+	
+	
+	
+	/**
+	 * Init app
+	 */
+	static Context appInit(Context c)
+	{
+		return c::appInit(c);
+	}
+	
+	
+	
+	/**
+	 * Start app
+	 */
+	static async Context appStart(Context c)
+	{
+		return await c::appStart(c);
+	}
+	
+	
+	
+	/**
+	 * Start driver
+	 */
+	public async void startDriver()
+	{
+		await parent::startDriver();
+	}
+	
+}

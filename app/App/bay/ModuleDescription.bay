@@ -1,0 +1,106 @@
+namespace App;
+
+use Runtime.Driver;
+use Runtime.Entity;
+use Runtime.LambdaChain;
+use Runtime.LambdaChainClass;
+use Runtime.LambdaChainDeclare;
+use Runtime.Web.App.Route;
+use Runtime.Web.App.RouteList;
+use App.Backend;
+use App.Frontend;
+
+
+static class ModuleDescription
+{
+	
+	/**
+	 * Returns module name
+	 * @return string
+ 	 */
+	pure string getModuleName() => "App";
+	
+	
+	
+	/**
+	 * Returns module name
+	 * @return string
+	 */
+	pure string getModuleVersion() => "0.0.1";
+	
+	
+	
+	/**
+	 * Returns required modules
+	 * @return Dict<string>
+	 */
+	pure Dict<string> requiredModules() =>
+	{
+		"Runtime": ">=0.3",
+		"Runtime.Web.App": "*",
+	};
+	
+	
+	
+	/**
+	 * Returns enities
+	 */
+	pure Collection<Dict> entities() =>
+	[
+		/* Register routes */
+		new Entity{ "name": "App.Routes" },
+		new RouteList{ "name": "App.Page.MainPage" },
+		
+		#ifdef FRONTEND then
+		
+		/* Frontend App */
+		new Entity{ "name": classof Frontend },
+		new Driver
+		{
+			"name": "WebApp",
+			"value": classof Frontend,
+			"global": true,
+			"params":
+			{
+			},
+		},
+		
+		#endif
+		
+		
+		#ifdef BACKEND then
+		
+		/* Backend App */
+		new Entity{ "name": classof Backend },
+		new Driver
+		{
+			"name": "WebApp",
+			"value": classof Backend,
+			"global": true,
+			"params":
+			{
+			},
+		},
+		
+		#endif
+	];
+	
+	
+	
+	/**
+	 * Returns context settings
+	 * @return Dict<string>
+	 */
+	pure Dict<string> appSettings(Dict env) => 
+	{
+		"config":
+		{
+			"Runtime.Web":
+			{
+				"f_inc": (@.env("APP_MODE", "prod") == "prod") ? 2 : rtl::utime(),
+			},
+		},
+	};
+	
+	
+}

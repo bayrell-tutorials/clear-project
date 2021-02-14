@@ -1,0 +1,10 @@
+<class version="1.0"
+	name="App.Page404" extends="Runtime.Web.Component" 
+	module="App" 
+>
+
+<template name="render">
+	{ _("App", "Page not found") }
+</template>
+
+</class>

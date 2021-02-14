@@ -1,0 +1,22 @@
+<class version="1.0"
+	name="App.DefaultLayout" extends="Runtime.Web.Component" 
+	module="App" model="Runtime.Web.App.LayoutModel"
+>
+
+
+<style>
+
+</style>
+
+
+<template name="render">
+	%var string class_name = model.page_class;
+	%if (not rtl::isEmpty(class_name))
+	{
+		<{class_name} @bind={["model", class_name]} @key="view"></{class_name}>
+	}
+</template>
+
+
+
+</class>

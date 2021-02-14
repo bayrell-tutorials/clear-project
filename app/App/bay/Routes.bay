@@ -1,0 +1,120 @@
+namespace App;
+
+use Runtime.LambdaChain;
+use Runtime.LambdaChainClass;
+use Runtime.LambdaChainDeclare;
+use Runtime.Web.RenderDriver;
+use Runtime.Web.App.LayoutModel;
+use Runtime.Web.App.RenderContainer;
+use Runtime.Web.App.Response;
+use Runtime.Web.App.Route;
+use Runtime.Web.App.RouteList;
+use Runtime.Web.App.WebApp;
+use App.DefaultLayout;
+use App.Page404;
+use App.Pattern;
+use App.Page.AdminerPage;
+
+
+@RouteList{}
+@LambdaChainClass{}
+static class Routes
+{
+	
+	/**
+	 * Extends components
+	 */
+	@LambdaChain
+	{
+		"name": RenderDriver::COMPONENTS_CHAIN,
+	}
+	pure list componentsChain(Collection components) => [ components ];
+	
+	
+	
+	/**
+	 * Title chain
+	 */
+	@LambdaChain
+	{
+		"name": WebApp::TITLE_CHAIN
+	}
+	pure RenderContainer titleChain(LayoutModel layout, string title)
+	{
+		title = title ~ " | App";
+		return [ layout, title ];
+	}
+	
+	
+	
+	/**
+	 * Render chain
+	 * Page not found
+	 * @return RenderContainer
+	 */
+	@LambdaChain
+	{
+		"name": WebApp::RENDER_CHAIN,
+		"pos": WebApp::RENDER_CHAIN_CALL_PAGE_NOT_FOUND,
+		"is_async": true
+	}
+	static async RenderContainer renderChain_Page404(RenderContainer container)
+	{
+		if (container == null or container.isResponseExists() or container.isPageExists()) return [ container ];
+		
+		/* Set title */
+		container <= layout <= title <= "Page not found";
+		container <= layout <= layout_name <= "default";
+		
+		/* Set page */
+		container = container.setPage(classof Page404, null);
+		
+		/* Set 404 code */
+		container <= new_http_code <= 404;
+		
+		return [ container ];
+	}
+	
+	
+	
+	/**
+	 * Render chain. Set layout
+	 */
+	@LambdaChain
+	{
+		"name": WebApp::RENDER_CHAIN,
+		"pos": WebApp::RENDER_CHAIN_LAYOUT + 10,
+	}
+	pure LayoutModel renderChain_Layout(RenderContainer container)
+	{
+		if (container.layout.layout_name == "default") container <= layout <= layout_class <= classof DefaultLayout;
+		if (container.layout.layout_name == "admin") container <= layout <= layout_class <= classof DefaultLayout;
+		if (container.layout.layout_class == "") container <= layout <= layout_class <= classof DefaultLayout;
+		return [ container ];
+	}
+	
+	
+	
+	#ifdef BACKEND then
+	
+	
+	/**
+	 * Render chain. Set default pattern
+	 */
+	@LambdaChain
+	{
+		"name": WebApp::RENDER_CHAIN,
+		"pos": WebApp::RENDER_CHAIN_RESPONSE_BEFORE
+	}
+	pure RenderContainer renderChain_PatternDefault(RenderContainer container)
+	{
+		if (container.pattern_name == "default" and container.pattern_class == "" or container.pattern_class == "")
+		{
+			container <= pattern_class <= classof Pattern;
+		}
+		return [ container ];
+	}
+	
+	#endif
+	
+}
